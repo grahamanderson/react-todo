@@ -13,3 +13,4 @@ Heroku Workflow
 heroku create
 git remote -v
 git push heroku master
+heroku open

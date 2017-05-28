@@ -1,7 +1,9 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom'
-import {Route, Router, IndexRoute, hashHistory} from 'react-router'
+import {Route, Router, IndexRoute, hashHistory} from 'react-router-dom'
 import TodoApp from 'TodoApp'
+import PropTypes from 'prop-types'
+
 
 //Load Foundation
 $(document).foundation();

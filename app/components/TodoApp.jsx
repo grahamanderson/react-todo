@@ -1,31 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import $ from 'jquery'
-import '!style-loader!css-loader!foundation-sites/dist/foundation.min.css'
-$(document).foundation();
+import React from 'react'
+import PropTypes from 'prop-types'
+import TodoList  from 'TodoList'
+//
+// import $ from 'jquery'
+// import '!style-loader!css-loader!foundation-sites/dist/foundation.min.css'
+// $(document).foundation();
 
 
 
 export default class TodoApp extends React.Component{
 
   constructor(props) {
-    super(props);
-    this.thingfunc = this.thingfunc.bind(this);
-  }
+      super(props);
+      // this.thingfunc = this.thingfunc.bind(this)
+      this.state = {
+         todos: [
+          {id: 1, text: 'Walk the dog'},
+          {id: 2,text: 'Clean the yard'},
+          {id: 3,text: 'Water plants'},
+          {id: 4,text: 'Wash dishes'}
+          ]
+      }
+   }
 
-  thingfunc(prop) {
-  }
-
-render(){
-    return (
-      <div>
-        <p>TodoApp.jsx</p>
-      </div>
-    )
-  }
+  render(){
+     const {todos} = this.state
+      return (
+        <div>
+          <TodoList todos={todos} />
+        </div>
+      )
+    }
 }
 
-// Thing.defaultProps = {prop: 0}
-// Thing.propTypes = {prop: PropTypes.number}
-// Main.propTypes = { children: PropTypes.element.isRequired }
+TodoApp.defaultProps = {todo: []}
+TodoApp.propTypes = {todo: PropTypes.array.isRequired}
