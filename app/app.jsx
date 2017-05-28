@@ -1,21 +1,17 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom'
 import {Route, Router, IndexRoute, hashHistory} from 'react-router'
+import TodoApp from 'TodoApp'
 
-// // Load foundation
+//Load Foundation
 $(document).foundation();
 
-// App css
+//App css
 require('style-loader!css-loader!sass-loader!applicationStyles')
 
-// import $ from 'jquery'
-// import '!style-loader!css-loader!foundation-sites/dist/foundation.min.css'
-// $(document).foundation();
 
-// ReactDOM.render(
-//   <p>Boilerplate 4 Project</p>,
-//   document.getElementById('app')
-// );
 
-require('./redux-example.jsx');
-// require('./redux-todo-example.jsx');
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('app')
+);
