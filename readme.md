@@ -8,3 +8,8 @@ git -am "first commit"
 git remote add origin "https://github.com/grahamanderson/ReactTimer.git"
 git remote -v
 git push --set-upstream origin master
+
+Heroku Workflow
+heroku create
+git remote -v
+git push heroku master
