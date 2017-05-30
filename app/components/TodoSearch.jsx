@@ -47,14 +47,3 @@ TodoSearch.propTypes = {
                         showCompleted: PropTypes.bool,
                         onSearch: PropTypes.func
                         }
-
-
-
-//
-// class ExampleComponent extends BaseComponent {
-//  constructor() {
-//   super();
-//   this._bind('_handleClick', '_handleFoo');
-//  }
-//  // ...
-// }

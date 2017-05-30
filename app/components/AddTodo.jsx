@@ -38,9 +38,9 @@ export default class AddTodo extends React.Component {
   }
 }
 
-AddTodo.defaultProps = {text: '', todoText: ''}
-AddTodo.propTypes = {
-                    text: PropTypes.string.isRequired,
-                    todoText: PropTypes.string.isRequired,
-                    onAddTodo: PropTypes.func.isRequired
-                    }
+// AddTodo.defaultProps = {text: '', todoText: ''}
+// AddTodo.propTypes = {
+//                     text: PropTypes.string.isRequired,
+//                     todoText: PropTypes.string.isRequired,
+//                     onAddTodo: PropTypes.func.isRequired
+//                     }

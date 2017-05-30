@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import TodoList  from 'TodoList'
 import AddTodo from 'AddTodo'
 import TodoSearch from 'TodoSearch'
+import uuid from 'uuid'
 
 
 
@@ -24,22 +25,30 @@ export default class TodoApp extends BaseComponent{
         showCompleted: false,
         searchText: '',
          todos: [
-          {id: 1, text: 'Walk the dog'},
-          {id: 2, text: 'Clean the yard'},
-          {id: 3, text: 'Water plants'},
-          {id: 4, text: 'Wash dishes'}
+          {id: uuid(), text: 'Walk the dog'},
+          {id: uuid(), text: 'Clean the yard'},
+          {id: uuid(), text: 'Water plants'},
+          {id: uuid(), text: 'Wash dishes'}
         ]
       }
    }
 
    handleAddTodo(text){
-     alert('new todo:' + text)
+     this.setState({
+       todos: [
+         ...this.state.todos,
+         {
+          id: uuid(),
+          text: text
+         }
+       ]
+     })
    }
 
    handleSearch(){
      this.setState({
-       showCompleted: showCompleted,
-       searchText: searchText.toLowerCase()
+       showCompleted: this.state.showCompleted,
+       searchText: this.state.searchText.toLowerCase()
      })
 
    }
@@ -58,5 +67,5 @@ export default class TodoApp extends BaseComponent{
     }
 }
 
-TodoApp.defaultProps = {todo: []}
-TodoApp.propTypes = {todo: PropTypes.array.isRequired}
+TodoApp.defaultProps = {todos :[]}
+TodoApp.propTypes = {todos: PropTypes.array.isRequired}

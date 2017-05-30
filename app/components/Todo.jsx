@@ -24,4 +24,4 @@ render(){
 
 Todo.defaultProps = {text: '', id: undefined}
 Todo.propTypes = {text: PropTypes.string.isRequired,
-                  id: PropTypes.number.isRequired}
+                  id: PropTypes.string.isRequired}
