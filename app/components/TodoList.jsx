@@ -2,12 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from 'Todo'
 
+class BaseComponent extends React.Component {
+ _bind(...methods) {
+  methods.forEach( (method) => this[method] = this[method].bind(this) );
+ }
+}
 
-export default class TodoList extends React.Component{
-
+export default class TodoList extends BaseComponent{
   constructor(props) {
       super(props);
-      // this.thingfunc = this.thingfunc.bind(this)
+      // this._bind('handler')
     }
 
   render(){
@@ -15,7 +19,9 @@ export default class TodoList extends React.Component{
 
       const renderTodos = () => {
         return todos.map((todo) => {
-            return <Todo key={todo.id}{...todo}/>
+            return (
+              <Todo key={todo.id}{...todo} onToggle={this.props.onToggle}/>
+            )
           })
       }
 

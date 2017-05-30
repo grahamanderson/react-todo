@@ -17,7 +17,7 @@ export default class TodoApp extends BaseComponent{
 
   constructor(props) {
       super(props);
-      this._bind('handleAddTodo', 'handleSearch');
+      this._bind('handleAddTodo', 'handleSearch', 'handleToggle');
       // this.handleAddTodo = this.handleAddTodo.bind(this)
       // this.handleSearch = this.handleSearch.bind(this)
 
@@ -25,10 +25,10 @@ export default class TodoApp extends BaseComponent{
         showCompleted: false,
         searchText: '',
          todos: [
-          {id: uuid(), text: 'Walk the dog'},
-          {id: uuid(), text: 'Clean the yard'},
-          {id: uuid(), text: 'Water plants'},
-          {id: uuid(), text: 'Wash dishes'}
+          {id: uuid(), text: 'Walk the dog', completed: false},
+          {id: uuid(), text: 'Clean the yard', completed: true},
+          {id: uuid(), text: 'Water plants', completed: true},
+          {id: uuid(), text: 'Wash dishes', completed: false}
         ]
       }
    }
@@ -39,11 +39,23 @@ export default class TodoApp extends BaseComponent{
          ...this.state.todos,
          {
           id: uuid(),
-          text: text
+          text: text,
+          completed: false
          }
        ]
      })
    }
+
+   handleToggle(id){
+     var updatedTodos = this.state.todos.map( (todo) => {
+       if (todo.id === id) {
+         todo.completed = !todo.completed
+       }
+       return todo
+   })
+
+   this.setState({todos: updatedTodos})
+ }
 
    handleSearch(){
      this.setState({
@@ -58,10 +70,8 @@ export default class TodoApp extends BaseComponent{
       return (
         <div>
           <TodoSearch onSearch={this.handleSearch}/>
-          <div>
-            <TodoList todos={todos} />
-            <AddTodo onAddTodo ={this.handleAddTodo} />
-          </div>
+          <TodoList todos={todos} onToggle={this.handleToggle}/>
+          <AddTodo onAddTodo ={this.handleAddTodo} />
         </div>
           )
     }

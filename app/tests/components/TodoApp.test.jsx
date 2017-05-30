@@ -19,4 +19,19 @@ describe('TodoApp', () => {
 
     expect(todoApp.state.todos[0].text).toBe(todoText)
   })
+
+  it('should toggle completed value when handleToggle is called', () => {
+    const todoData =  {
+      id: 11,
+      text: 'Test features',
+      completed: false
+    }
+
+    const todoApp = ReactTestUtils.renderIntoDocument(<TodoApp/>)
+    todoApp.setState({todos: [todoData]})
+
+    expect(todoApp.state.todos[0].completed).toBe(false)
+    todoApp.handleToggle(11)
+    expect(todoApp.state.todos[0].completed).toBe(true)
+  })
 })
