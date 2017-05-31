@@ -31,4 +31,4 @@ Todo.propTypes = {
   id: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired
-              }
+}

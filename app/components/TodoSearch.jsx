@@ -17,9 +17,8 @@ export default class TodoSearch extends BaseComponent{
 
   handleSearch() {
     var showCompleted = this.showCompleted.checked
-    // console.log('show completed: ', showCompleted)
+    console.log('from handleSearch show completed: ', showCompleted)
     var searchText = this.searchText.value
-
     this.props.onSearch(showCompleted, searchText)
   }
 

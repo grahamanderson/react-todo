@@ -31,6 +31,7 @@ export default class TodoApp extends BaseComponent{
       }
    }
 
+
    componentDidUpdate(){
      TodoAPI.setTodos(this.state.todos)
    }
@@ -59,20 +60,23 @@ export default class TodoApp extends BaseComponent{
    this.setState({todos: updatedTodos})
  }
 
-   handleSearch(){
+   handleSearch(showCompleted, searchText){
      this.setState({
-       showCompleted: this.state.showCompleted,
-       searchText: this.state.searchText.toLowerCase()
-     })
+      showCompleted: showCompleted,
+      searchText: searchText.toLowerCase()
 
+     })
+      console.log(this.state.showCompleted, this.state.searchText )
    }
 
   render(){
-     const {todos} = this.state
+     const {todos, showCompleted, searchText} = this.state
+     var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
+
       return (
         <div>
           <TodoSearch onSearch={this.handleSearch}/>
-          <TodoList todos={todos} onToggle={this.handleToggle}/>
+          <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
           <AddTodo onAddTodo ={this.handleAddTodo} />
         </div>
           )

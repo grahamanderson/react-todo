@@ -54,29 +54,50 @@ describe('TodoAPI', () => {
     expect(actualTodos).toEqual(todos)
   })
 
+  describe('filterTodos', () => {
+    var todos = [ {
+      id: 1,
+      text: 'Some text here',
+      completed: true,
+    },{
+      id: 2,
+      text: 'Other text here',
+      completed: false,
+    },{
+      id: 3,
+      text: 'Some text here',
+      completed: true,
+    }]
 
+    it('should return all items if showCompleted is true', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '')
+      expect(filteredTodos.length).toBe(3)
+    })
+
+    it('should return non-completed items if showCompleted is false', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, false, '')
+      expect(filteredTodos.length).toBe(1)
+    })
+
+    it('should sort by completed status', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '')
+      expect(filteredTodos[0].completed).toBe(false)
+    })
+
+    it('should return all todos when search string is empty', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '')
+      expect(filteredTodos.length).toBe(3)
+    })
+
+    it('should return todos that match search string', () => {
+      var filteredTodos = TodoAPI.filterTodos(todos, true, 'some')
+      expect(filteredTodos.length).toBe(2)
+    })
+
+    // it('should return completed = false for the first sorted array', () => {
+    //   var filteredTodos = TodoAPI.filterTodos(todos, false, '')
+    //   expect(filteredTodos.length).toBe(1)
+    // })
+
+  })
 })
-
-  // describe('setTodos', ( )=> {
-  //
-  // })
-
-
-
-
-  //
-  // it('should call onToggle prop with id on click', () => {
-  //   var todoData= {
-  //     id:199,
-  //     text: 'Write todo.text.jsx test',
-  //     completed: true
-  //   }
-  //   var spy = expect.createSpy()
-  //   var todo = ReactTestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy} />)
-  //
-  //   var $el = $(ReactDom.findDOMNode(todo))
-  //
-  //   ReactTestUtils.Simulate.click($el[0])
-  //
-  //   expect(spy).toHaveBeenCalledWith(199)
-  //   })
