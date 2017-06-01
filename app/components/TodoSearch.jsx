@@ -17,14 +17,14 @@ export default class TodoSearch extends BaseComponent{
 
   handleSearch() {
     var showCompleted = this.showCompleted.checked
-    console.log('from handleSearch show completed: ', showCompleted)
+    // console.log('from handleSearch show completed: ', showCompleted)
     var searchText = this.searchText.value
     this.props.onSearch(showCompleted, searchText)
   }
 
 render(){
     return (
-      <div>
+      <div className="container__header">
         <div>
           <input type="search" ref={(s)=>this.searchText=s}  placeholder="Search todos" onChange = {this.handleSearch}/>
         </div>

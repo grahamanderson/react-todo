@@ -6,6 +6,7 @@ import TodoList  from 'TodoList'
 import AddTodo from 'AddTodo'
 import TodoSearch from 'TodoSearch'
 import TodoAPI from 'TodoAPI'
+import moment from 'moment'
 
 
 
@@ -43,7 +44,9 @@ export default class TodoApp extends BaseComponent{
          {
           id: uuid(),
           text: text,
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
          }
        ]
      })
@@ -53,6 +56,7 @@ export default class TodoApp extends BaseComponent{
      var updatedTodos = this.state.todos.map( (todo) => {
        if (todo.id === id) {
          todo.completed = !todo.completed
+         todo.completedAt = todo.completed ? moment().unix(): undefined
        }
        return todo
    })
@@ -75,13 +79,22 @@ export default class TodoApp extends BaseComponent{
 
       return (
         <div>
-          <TodoSearch onSearch={this.handleSearch}/>
-          <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
-          <AddTodo onAddTodo ={this.handleAddTodo} />
+          <h1 className = "page-title">Todo App</h1>
+
+          <div className="row">
+            <div className="column small-centered small-11 medium-6 large-5">
+              <div className="container">
+                <TodoSearch onSearch={this.handleSearch}/>
+                <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+                <AddTodo onAddTodo ={this.handleAddTodo} />
+              </div>
+            </div>
+          </div>
         </div>
+
           )
-    }
-}
+      }
+  }
 
 TodoApp.defaultProps = {todos :[]}
 TodoApp.propTypes = {todos: PropTypes.array.isRequired}
