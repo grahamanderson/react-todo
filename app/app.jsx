@@ -1,14 +1,13 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom'
+var {Provider} = require('react-redux');
 import {Route, Router, IndexRoute, hashHistory} from 'react-router-dom'
+
 import TodoApp from 'TodoApp'
 import PropTypes from 'prop-types'
 
 import * as actions from 'actions'
 var store = require('configureStore').configure();
-// import {configure as store} from 'configureStore'.configure()
-// import {configure as store} from 'configureStore'
-
 
 store.subscribe(() => {
   console.log('New state', store.getState())
@@ -27,6 +26,8 @@ require('style-loader!css-loader!sass-loader!applicationStyles')
 
 
 ReactDOM.render(
-  <TodoApp />,
+  <Provider store={store}>
+    <TodoApp/>
+  </Provider>,
   document.getElementById('app')
 );

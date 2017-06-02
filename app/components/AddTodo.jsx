@@ -1,12 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class AddTodo extends React.Component {
+
+class BaseComponent extends React.Component {
+ _bind(...methods) {
+  methods.forEach( (method) => this[method] = this[method].bind(this) );
+ }
+}
+
+export default class AddTodo extends BaseComponent {
 
   constructor(props) {
     super(props)
     // this.state = {};
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this._bind('handleSubmit');
   }
 
   handleSubmit(e){
@@ -44,3 +52,33 @@ AddTodo.propTypes = {
                     todoText: PropTypes.string.isRequired,
                     onAddTodo: PropTypes.func.isRequired
                     }
+
+// Original
+// var React = require('react');
+// var createReactClass = require('create-react-class')
+//
+// var AddTodo = createReactClass({
+//   handleSubmit: function (e) {
+//     e.preventDefault();
+//     var todoText = this.refs.todoText.value;
+//
+//     if (todoText.length > 0) {
+//       this.refs.todoText.value = '';
+//       this.props.onAddTodo(todoText);
+//     } else {
+//       this.refs.todoText.focus();
+//     }
+//   },
+//   render: function () {
+//     return (
+//       <div className="container__footer">
+//         <form onSubmit={this.handleSubmit}>
+//           <input type="text" ref="todoText" placeholder="What do you need to do?"/>
+//           <button className="button expanded">Add Todo</button>
+//         </form>
+//       </div>
+//     );
+//   }
+// });
+//
+// module.exports = AddTodo;

@@ -1,38 +1,37 @@
-import React from 'react'
-import ReactDom from 'react-dom'
-import expect from 'expect'
-import $ from 'jQuery';
+var React = require('react');
+var ReactDOM = require('react-dom');
 import ReactTestUtils from 'react-dom/test-utils'
+var expect = require('expect');
+var $ = require('jquery');
 
-import AddTodo from 'AddTodo'
+var AddTodo = require('AddTodo');
 
 describe('AddTodo', () => {
   it('should exist', () => {
-    expect(AddTodo).toExist()
-  })
+    expect(AddTodo).toExist();
+  });
 
-  it('should call onAddTodo when text is entered', () => {
-    var spy = expect.createSpy()
-    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>)
-    var $el = $(ReactDom.findDOMNode(addTodo))
+  it('should call onAddTodo prop with valid data', () => {
+    var todoText = 'Check mail';
+    var spy = expect.createSpy();
+    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(addTodo));
 
-    addTodo.todoText.value = 'mad hatter'
-    ReactTestUtils.Simulate.submit($el.find('form')[0])
+    addTodo.refs.todoText.value = todoText;
+    ReactTestUtils.Simulate.submit($el.find('form')[0]);
 
-    expect(spy).toHaveBeenCalledWith('mad hatter')
-  })
+    expect(spy).toHaveBeenCalledWith(todoText);
+  });
 
-  it('should not call onAddTodo when invalid input', () => {
-    var todoText =''
-    var spy = expect.createSpy()
-    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>)
-    var $el = $(ReactDom.findDOMNode(addTodo))
+  it('should not call onAddTodo prop when invalid input', () => {
+    var todoText = '';
+    var spy = expect.createSpy();
+    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(addTodo));
 
-    addTodo.todoText.value = todoText
-    ReactTestUtils.Simulate.submit($el.find('form')[0])
+    addTodo.refs.todoText.value = todoText;
+    ReactTestUtils.Simulate.submit($el.find('form')[0]);
 
-    expect(spy).toNotHaveBeenCalled()
-  })
-
-
-})
+    expect(spy).toNotHaveBeenCalled();
+  });
+});

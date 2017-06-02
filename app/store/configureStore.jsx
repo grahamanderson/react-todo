@@ -1,16 +1,18 @@
-import * as redux from 'redux';
+// import * as redux from 'redux'
+var redux = require('redux')
 import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers'
 
-export  const configure = () => {
-  const reducer = redux.combineReducers({
+export var configure = () => {
+  var reducer = redux.combineReducers({
     searchText: searchTextReducer,
     showCompleted: showCompletedReducer,
     todos: todosReducer
-  })
+  });
 
   var store = redux.createStore(reducer, redux.compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
-  ))
+  ));
 
-  return store
-}
+
+  return store;
+};

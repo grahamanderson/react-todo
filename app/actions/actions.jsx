@@ -6,6 +6,7 @@ export const setSearchText = (searchText) => {
 }
 
 export const addTodo = (text)=> {
+  // console.log('text is: ', text)
   return {
     type: 'ADD_TODO',
     text
@@ -16,7 +17,7 @@ export const addTodo = (text)=> {
 export const toggleShowCompleted = () => {
   return {
     type: 'TOGGLE_SHOW_COMPLETED',
-    
+
   }
 }
 

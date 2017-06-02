@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from 'Todo'
+import {connect} from 'react-redux'
 
 class BaseComponent extends React.Component {
  _bind(...methods) {
@@ -8,10 +9,10 @@ class BaseComponent extends React.Component {
  }
 }
 
-export default class TodoList extends BaseComponent{
+export class TodoList extends BaseComponent{
   constructor(props) {
       super(props);
-      // this._bind('handler')
+      // this._bind('onSomeHandler')
     }
 
   render(){
@@ -39,3 +40,11 @@ export default class TodoList extends BaseComponent{
 
 TodoList.defaultProps = {todos: []}
 TodoList.propTypes = {todos: PropTypes.array.isRequired}
+
+export default connect(
+  (state) => {
+    return {
+      todos: state.todos
+    };
+  }
+)(TodoList);

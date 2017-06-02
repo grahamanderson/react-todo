@@ -1,28 +1,31 @@
-import React from 'react';
-import ReactDom from 'react-dom'
-import expect from 'expect'
-import $ from 'jQuery'
+var React = require('react');
+var ReactDOM = require('react-dom');
 import ReactTestUtils from 'react-dom/test-utils'
-import Todo from 'Todo'
+var expect = require('expect');
+var $ = require('jquery');
+
+var {Todo} = require('Todo');
 
 describe('Todo', () => {
   it('should exist', () => {
     expect(Todo).toExist();
-  })
+  });
 
-  it('should call onToggle prop with id on click', () => {
-    var todoData= {
-      id:199,
-      text: 'Write todo.text.jsx test',
+  it('should dispatch TOGGLE_TODO action on click', () => {
+    var todoData = {
+      id: 199,
+      text: 'Write todo.test.jsx test',
       completed: true
-    }
-    var spy = expect.createSpy()
-    var todo = ReactTestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy} />)
+    };
+    var spy = expect.createSpy();
+    var todo = ReactTestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(todo));
 
-    var $el = $(ReactDom.findDOMNode(todo))
+    ReactTestUtils.Simulate.click($el[0]);
 
-    ReactTestUtils.Simulate.click($el[0])
-
-    expect(spy).toHaveBeenCalledWith(199)
-  })
-})
+    expect(spy).toHaveBeenCalledWith({
+      type: 'TOGGLE_TODO',
+      id: todoData.id
+    });
+  });
+});
