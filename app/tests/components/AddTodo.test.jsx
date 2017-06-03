@@ -1,36 +1,41 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-import ReactTestUtils from 'react-dom/test-utils'
-var expect = require('expect');
-var $ = require('jquery');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+import expect from 'expect'
+import $ from 'jquery'
 
-var AddTodo = require('AddTodo');
+import {AddTodo} from 'AddTodo'
+
 
 describe('AddTodo', () => {
   it('should exist', () => {
     expect(AddTodo).toExist();
   });
 
-  it('should call onAddTodo prop with valid data', () => {
+  it('should dispatch ADD_TODO when valid todo text', () => {
     var todoText = 'Check mail';
+    var action = {
+      type: 'ADD_TODO',
+      text: todoText
+    }
     var spy = expect.createSpy();
-    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+    var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(addTodo));
 
     addTodo.refs.todoText.value = todoText;
-    ReactTestUtils.Simulate.submit($el.find('form')[0]);
+    TestUtils.Simulate.submit($el.find('form')[0]);
 
-    expect(spy).toHaveBeenCalledWith(todoText);
+    expect(spy).toHaveBeenCalledWith(action);
   });
 
-  it('should not call onAddTodo prop when invalid input', () => {
+  it('should not dispatch ADD_TODO when invalid todo text', () => {
     var todoText = '';
     var spy = expect.createSpy();
-    var addTodo = ReactTestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+    var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(addTodo));
 
     addTodo.refs.todoText.value = todoText;
-    ReactTestUtils.Simulate.submit($el.find('form')[0]);
+    TestUtils.Simulate.submit($el.find('form')[0]);
 
     expect(spy).toNotHaveBeenCalled();
   });

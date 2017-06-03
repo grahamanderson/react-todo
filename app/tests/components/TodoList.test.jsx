@@ -1,11 +1,15 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-import ReactTestUtils from 'react-dom/test-utils'
-var expect = require('expect');
-var $ = require('jquery');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import TestUtils from 'react-addons-test-utils'
+import expect from 'expect'
+import $ from 'jquery'
 
+
+import {configure} from 'configureStore';
 import ConnectedTodoList, {TodoList} from 'TodoList';
-var Todo = require('Todo');
+import ConnectedTodo, {Todo} from 'Todo'
+
 
 describe('TodoList', () => {
   it('should exist', () => {
@@ -15,20 +19,34 @@ describe('TodoList', () => {
   it('should render one Todo component for each todo item', () => {
     var todos = [{
       id: 1,
-      text: 'Do something'
+      text: 'Do something',
+      completed: false,
+      completedAt: undefined,
+      createdAt: 500
     }, {
       id: 2,
-      text: 'Check mail'
+      text: 'Check mail',
+      completed: false,
+      completedAt: undefined,
+      createdAt: 500
     }];
-    var todoList = ReactTestUtils.renderIntoDocument(<TodoList todos={todos}/>);
-    var todosComponents = ReactTestUtils.scryRenderedComponentsWithType(todoList, Todo);
+    var store = configure({
+      todos
+    });
+    var provider = TestUtils.renderIntoDocument(
+      <Provider store={store}>
+        <ConnectedTodoList/>
+      </Provider>
+    );
+    var todoList = TestUtils.scryRenderedComponentsWithType(provider, ConnectedTodoList)[0];
+    var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, ConnectedTodo);
 
     expect(todosComponents.length).toBe(todos.length);
   });
 
   it('should render empty message if no todos', () => {
     var todos = [];
-    var todoList = ReactTestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+    var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
     var $el = $(ReactDOM.findDOMNode(todoList));
 
     expect($el.find('.container__message').length).toBe(1);

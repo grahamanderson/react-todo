@@ -1,10 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-import ReactTestUtils from 'react-dom/test-utils'
-var expect = require('expect');
-var $ = require('jquery');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+import expect from 'expect'
+import $ from 'jquery'
 
-var {Todo} = require('Todo');
+import {Todo} from 'Todo'
 
 describe('Todo', () => {
   it('should exist', () => {
@@ -18,10 +18,10 @@ describe('Todo', () => {
       completed: true
     };
     var spy = expect.createSpy();
-    var todo = ReactTestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>);
+    var todo = TestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(todo));
 
-    ReactTestUtils.Simulate.click($el[0]);
+    TestUtils.Simulate.click($el[0]);
 
     expect(spy).toHaveBeenCalledWith({
       type: 'TOGGLE_TODO',

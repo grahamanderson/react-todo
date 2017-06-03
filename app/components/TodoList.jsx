@@ -1,7 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Todo from 'Todo'
-import {connect} from 'react-redux'
+var TodoAPI = require('TodoAPI')
+
 
 class BaseComponent extends React.Component {
  _bind(...methods) {
@@ -10,32 +12,28 @@ class BaseComponent extends React.Component {
 }
 
 export class TodoList extends BaseComponent{
-  constructor(props) {
-      super(props);
-      // this._bind('onSomeHandler')
-    }
-
-  render(){
-      const {todos} = this.props
-      const renderTodos = () => {
-        if (todos.length === 0) {
-          return (
-            <p className="container__message"> Nothing to Do</p>
-          )
-        }
-        return todos.map((todo) => {
-            return (
-              <Todo key={todo.id}{...todo} onToggle={this.props.onToggle}/>
-            )
-          })
+  render() {
+    var {todos, showCompleted, searchText} = this.props;
+    var renderTodos = () => {
+      if (todos.length === 0) {
+        return (
+          <p className="container__message">Nothing To Do</p>
+        );
       }
 
-      return (
-        <div>
-          {renderTodos()}
-        </div>
-      )
-    }
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+        return (
+          <Todo key={todo.id} {...todo}/>
+        );
+      });
+    };
+
+    return (
+      <div>
+        {renderTodos()}
+      </div>
+    )
+  }
 }
 
 TodoList.defaultProps = {todos: []}
@@ -43,8 +41,6 @@ TodoList.propTypes = {todos: PropTypes.array.isRequired}
 
 export default connect(
   (state) => {
-    return {
-      todos: state.todos
-    };
+    return state
   }
 )(TodoList);

@@ -1,48 +1,38 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import * as actions from 'actions'
 
-class BaseComponent extends React.Component {
- _bind(...methods) {
-  methods.forEach( (method) => this[method] = this[method].bind(this) );
- }
-}
 
-export default class TodoSearch extends BaseComponent{
+export  class TodoSearch extends React.Component{
+  render() {
+    var {dispatch, showCompleted, searchText} = this.props;
 
-  constructor(props) {
-    super(props);
-    this._bind('handleSearch');
-    // this.handleSearch = this.handleSearch.bind(this);
-  }
-
-  handleSearch() {
-    var showCompleted = this.showCompleted.checked
-    // console.log('from handleSearch show completed: ', showCompleted)
-    var searchText = this.searchText.value
-    this.props.onSearch(showCompleted, searchText)
-  }
-
-render(){
     return (
       <div className="container__header">
         <div>
-          <input type="search" ref={(s)=>this.searchText=s}  placeholder="Search todos" onChange = {this.handleSearch}/>
+          <input type="search" ref="searchText" placeholder="Search todos" value={searchText} onChange={() => {
+              var searchText = this.refs.searchText.value;
+              dispatch(actions.setSearchText(searchText));
+            }}/>
         </div>
-
         <div>
           <label>
-            <input type="checkbox" ref={(cb)=>this.showCompleted=cb}
-              onChange = {this.handleSearch}/> Show completed todos
+            <input type="checkbox" ref="showCompleted" checked={showCompleted} onChange={() => {
+                dispatch(actions.toggleShowCompleted());
+              }}/>
+            Show completed todos
           </label>
         </div>
       </div>
-      )
+    )
   }
 }
 
-TodoSearch.defaultProps = {searchText: '', showCompleted: false}
-TodoSearch.propTypes = {
-                        searchText: PropTypes.string,
-                        showCompleted: PropTypes.bool,
-                        onSearch: PropTypes.func
-                        }
+export default connect(
+  (state) => {
+    return {
+      showCompleted: state.showCompleted,
+      searchText: state.searchText
+    }
+  }
+)(TodoSearch);

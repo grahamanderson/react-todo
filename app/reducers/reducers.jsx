@@ -1,4 +1,4 @@
-import uuid from 'uuid'
+import uuid from 'node-uuid'
 import moment from 'moment'
 
 export var searchTextReducer = (state = '', action) => {
@@ -42,8 +42,15 @@ export var todosReducer = (state = [], action) => {
             completed: nextCompleted,
             completedAt: nextCompleted ? moment().unix() : undefined
           };
+        }else {
+          return todo
         }
       });
+      case 'ADD_TODOS':
+        return[
+          ...state,
+          ...action.todos
+        ];
     default:
       return state;
   }

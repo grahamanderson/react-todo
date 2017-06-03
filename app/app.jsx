@@ -1,29 +1,32 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom'
-var {Provider} = require('react-redux');
-import {Route, Router, IndexRoute, hashHistory} from 'react-router-dom'
-
+import React from 'react'
+import ReactDOM  from 'react-dom'
+import {Provider} from 'react-redux'
+import {Route, Router, IndexRoute, hashHistory} from 'react-router'
 import TodoApp from 'TodoApp'
-import PropTypes from 'prop-types'
+var TodoAPI = require('TodoAPI')
 
 import * as actions from 'actions'
+
+// Not sure how to write this one in ES6 :\
 var store = require('configureStore').configure();
 
+
+
 store.subscribe(() => {
-  console.log('New state', store.getState())
-})
+  var state = store.getState()
+  console.log('New state', state);
+  TodoAPI.setTodos(state.todos)
+});
 
-store.dispatch(actions.addTodo('Clean the Yard'))
-store.dispatch(actions.setSearchText('yard'))
-store.dispatch(actions.toggleShowCompleted())
+var initialTodos = TodoAPI.getTodos()
+store.dispatch(actions.addTodos(initialTodos))
 
-//Load Foundation
+
+// Load foundation
 $(document).foundation();
 
-//App css
-require('style-loader!css-loader!sass-loader!applicationStyles')
-
-
+// App css
+require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>

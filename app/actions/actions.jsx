@@ -1,31 +1,33 @@
-export const setSearchText = (searchText) => {
+export var setSearchText = (searchText) => {
   return {
     type: 'SET_SEARCH_TEXT',
     searchText
-  }
-}
+  };
+};
 
-export const addTodo = (text)=> {
-  // console.log('text is: ', text)
+export var toggleShowCompleted = () => {
+  return {
+    type: 'TOGGLE_SHOW_COMPLETED'
+  };
+};
+
+export var addTodo = (text) => {
   return {
     type: 'ADD_TODO',
     text
-  }
-}
+  };
+};
 
-// toggleShowCompleted generator
-export const toggleShowCompleted = () => {
+export var addTodos = (todos) => {
   return {
-    type: 'TOGGLE_SHOW_COMPLETED',
+    type: 'ADD_TODOS',
+    todos
+  };
+};
 
-  }
-}
-
-
-// toggleShowCompleted generator
-export const toggleTodo = (id) => {
+export var toggleTodo = (id) => {
   return {
     type: 'TOGGLE_TODO',
     id
-  }
-}
+  };
+};

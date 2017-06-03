@@ -26,7 +26,7 @@ export class Todo extends BaseComponent{
   // }
 
   render(){
-      const {text, id, completed, createdAt, completedAt} = this.props
+      var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
       const todoClassName = completed ? 'todo todo-completed' : 'todo'
       let renderedDate = () => {
         let message = 'Created'
