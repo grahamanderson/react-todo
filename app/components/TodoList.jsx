@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Todo from 'Todo'
-var TodoAPI = require('TodoAPI')
+import TodoAPI from 'TodoAPI'
 
 
 class BaseComponent extends React.Component {

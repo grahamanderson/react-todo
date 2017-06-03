@@ -1,10 +1,9 @@
 import React from 'react'
-// import {connect} from 'react-redux'
-var {connect} = require('react-redux');
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-// import * as actions from 'actions'
-var actions = require('actions')
+import * as  actions from 'actions'
+
 
 
 class BaseComponent extends React.Component {

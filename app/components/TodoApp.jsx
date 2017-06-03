@@ -1,7 +1,3 @@
-
-// ES6 Version Doesn't Work
-//--------------------------------------
-//
 import React from 'react'
 import uuid from 'node-uuid'
 import moment from 'moment'
@@ -9,7 +5,7 @@ import moment from 'moment'
 import TodoList from 'TodoList'
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
-//
+
 
 export default class TodoApp extends React.Component{
   render() {
