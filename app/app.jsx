@@ -2,10 +2,9 @@ import React from 'react'
 import ReactDOM  from 'react-dom'
 import {Provider} from 'react-redux'
 import {Route, Router, IndexRoute, hashHistory} from 'react-router'
+import * as actions from 'actions'
 import TodoApp from 'TodoApp'
 var TodoAPI = require('TodoAPI')
-
-import * as actions from 'actions'
 
 // Not sure how to write this one in ES6 :\
 var store = require('configureStore').configure();

@@ -36,14 +36,14 @@ module.exports = {
       return searchText.length === 0 || text.indexOf(searchText) > -1
     })
 
-    // Sort todos with non-completed first
+    // Sort todos with non-completed first. A and B are todo items in the list
     filteredTodos.sort( (a,b) => {
       if (!a.completed &&  b.completed) {
-        return -1
+        return -1  // a comes before b  --a and be are todo items
       }else if (a.completed && !b.completed) {
-        return 1
+        return 1  // a comes after b
       }else {
-        return 0
+        return 0  // a = b, no reason to resort
       }
     })
 

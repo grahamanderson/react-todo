@@ -17,25 +17,27 @@ export class AddTodo extends BaseComponent {
     this._bind('handleSubmit');
   }
 
-  handleSubmit(e){
-    e.preventDefault()
+  handleSubmit(e) {
     e.preventDefault();
     var {dispatch} = this.props;
     var todoText = this.refs.todoText.value;
+    // var todoText = this.todoText
 
     if (todoText.length > 0) {
       this.refs.todoText.value = '';
-      dispatch(actions.addTodo(todoText));
+      dispatch(actions.startAddTodo(todoText));
     } else {
       this.refs.todoText.focus();
     }
   }
 
+
   render(){
     return (
       <div className="container__footer">
         <form onSubmit={this.handleSubmit}>
-          <input type="text" ref="todoText" placeholder="What do you need to do?"/>
+          <input type="text"
+            placeholder="What do you need to do?"  ref="todoText"/>
           <button className="button expanded">Add Todo</button>
         </form>
       </div>
@@ -45,20 +47,33 @@ export class AddTodo extends BaseComponent {
 
 AddTodo.defaultProps = {text: '', todoText: ''}
 AddTodo.propTypes = {
-                    text: PropTypes.string.isRequired,
-                    todoText: PropTypes.string.isRequired,
-                    onAddTodo: PropTypes.func.isRequired
+                    text: PropTypes.string,
+                    todoText: PropTypes.string,
+                    onAddTodo: PropTypes.func
                     }
 
 export default connect()(AddTodo);
 
-// Form with ES6 ref --which doesn;t Workflow<div
-//   <form ref={(ref) => this.form = ref} onSubmit={this.handleSubmit} className="form">
-//     <input type="text"
-//       ref={(input) => this.todoText = input}
-//       placeholder="What do you need to do" />
-//     <div className="text-center larger small-centered">
-//       <button className="button expanded">Add Todo</button>
-//     </div>
-//   </form>
-// </div>
+
+// Non working ES6 form :\
+{/* <div className="container__footer">
+  <form onSubmit={this.handleSubmit}>
+    <input type="text"
+      ref={(input) => this.todoText = input}
+      placeholder="What do you need to do?"/>
+    <button className="button expanded">Add Todo</button>
+  </form>
+</div> */}
+
+// handleSubmit(e){
+//   e.preventDefault()
+//   var {dispatch} = this.props
+//   var todoText = this.mytodoText
+//   console.log('the todo text is ', this.todoText)
+//   if (todoText.length > 0) {
+//     this.mytodoText = ''
+//     dispatch(actions.startAddTodo(todoText));
+//   } else {
+//     this.mytodoText.focus();
+//   }
+// }
