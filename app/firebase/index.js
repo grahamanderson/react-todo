@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 
-const API_KEY = 'AIzaSyB5UIyQPETGzZYRpHXRU9OA3t7V7rK0w54'
-const AUTH_DOMAIN = 'todo-app-test-7ee6b.firebaseapp.com'
-const DATABASE_URL= 'https://todo-app-test-7ee6b.firebaseio.com'
+const API_KEY = '****************************'
+const AUTH_DOMAIN = '*********************'
+const DATABASE_URL= '*******************'
 const STORAGE_BUCKET=''
 
 
