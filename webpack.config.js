@@ -3,11 +3,13 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var envFile = require('node-env-file')
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+// console.log('environment is: ',process.env.NODE_ENV )
 
 try {
-  envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env'))
-} catch(e) {
+  envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env'));
+  // console.log('what is this? ', envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env')))
+} catch (e) {
 
 }
 
@@ -22,6 +24,18 @@ module.exports = {
     jquery: 'jQuery'
   },
   plugins: [
+    // new webpack.EnvironmentPlugin({
+    //        NODE_ENV: 'development'
+    //    }),
+     new webpack.DefinePlugin({
+         'process.env': {
+           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+           API_KEY: JSON.stringify(process.env.API_KEY),
+           AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
+           DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
+           STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET)
+       }
+     }),
     new HtmlWebpackPlugin({
       template: 'app/index.html'
     }),
@@ -32,16 +46,8 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       warnings: false
-    }),
-    new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          API_KEY: JSON.stringify(process.env.API_KEY),
-          AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
-          DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
-          STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET)
-      }
     })
+
   ],
   output: {
     path: __dirname,
